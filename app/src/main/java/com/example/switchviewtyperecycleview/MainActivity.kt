@@ -41,12 +41,14 @@ class MainActivity : AppCompatActivity() {
         mRcvFlower.adapter = mFlowerAdapter
     }
 
+    // hàm check kiểu hiện thị
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         mMenu =menu!!
         return super.onCreateOptionsMenu(menu)
     }
 
+    //hàm check khi ấn vào icon
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         val id :Int = item.itemId
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    // hàm thay đổi kiểu hiển thị
     private fun onClickChangeTypeDisplay() {
         when (mCurrentTypeDisplay) {
             Flower.TYPE_GRID -> {
@@ -77,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         mRcvFlower.scrollToPosition(mCurrentPosition)
     }
 
+    // hàm thay đổi icon
     private fun setIconMenu() {
         when(mCurrentTypeDisplay){
             Flower.TYPE_GRID -> mMenu.getItem(0).setIcon(R.drawable.ic_list)
@@ -85,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // hàm set kiểu hiển thị
     private fun setTypeDisplayRecycleView(typeDisplay: Int) {
         if (mListFlower.isEmpty()) {
             return
@@ -94,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             mCurrentTypeDisplay=typeDisplay
         }
     }
-
+     // hàm lấy vị trí người dùng đang nhìn
     private fun setCurrentPosition(){
         val layoutManager: RecyclerView.LayoutManager? = mRcvFlower.layoutManager
         when(mCurrentTypeDisplay){
@@ -108,6 +113,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // thêm ảnh vào mảng list
     private fun getListFlower(): List<Flower> {
         val list : MutableList<Flower> = ArrayList()
         list.add(Flower(R.drawable.img_flower_1))
