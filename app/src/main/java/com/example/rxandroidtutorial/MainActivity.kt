@@ -19,20 +19,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val observable = getObservable()
+        val user =User(1, "dung 1")
+        val observable = user.getNameDeferObservable()
+
+        user.name="dung2"
         val observer = getObserverUsers()
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe(observer)
     }
 
-    private fun getObserverUsers(): Observer<Int> {
-        return object : Observer<Int> {
+    private fun getObserverUsers(): Observer<String> {
+        return object : Observer<String> {
             override fun onSubscribe(d: Disposable) {
                 Log.e("tien dung", "onSubscribe")
                 mDisposable=d
             }
 
-            override fun onNext(t: Int) {
+            override fun onNext(t: String) {
                 Log.e("tien dung", "onNext: $t")
 //                if(t.toInt()==3){
 //                    mDisposable.dispose()
@@ -49,14 +52,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getObservable(): Observable<Int> {
-        val user1 =User(1, "dung 1")
-        val user2 =User(2, "dung 2")
-        val arrayUser = arrayOf(user1, user2)
-//        return Observable.fromArray(user1, user2)
-        return Observable.range(1, 10)
-
-    }
+//    private fun getObservable(): Observable<String> {
+//        val user1 =User(1, "dung 1")
+//        val user2 =User(2, "dung 2")
+//        val arrayUser = arrayOf(user1, user2)
+////        return Observable.fromArray(user1, user2)
+//        return Observable.range(1, 6).repeat(2)
+//
+//    }
 
     private fun getListUsers(): List<User> {
         val list = mutableListOf<User>()
