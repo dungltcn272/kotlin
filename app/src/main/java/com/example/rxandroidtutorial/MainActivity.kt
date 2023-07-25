@@ -25,26 +25,18 @@ class MainActivity : AppCompatActivity() {
             .subscribe(observer)
     }
 
-    private fun getObserverUsers(): Observer<Long> {
-        return object : Observer<Long> {
+    private fun getObserverUsers(): Observer<Int> {
+        return object : Observer<Int> {
             override fun onSubscribe(d: Disposable) {
                 Log.e("tien dung", "onSubscribe")
                 mDisposable=d
             }
 
-            override fun onNext(t: Long) {
+            override fun onNext(t: Int) {
                 Log.e("tien dung", "onNext: $t")
-//                if(t is Array<*>){
-//                    if(t.isArrayOf<User>()){
-//                        val users = t as Array<User>
-//                        for (user in users){
-//                            Log.e("tien dung", "User info onNext: ${user.toString()}")
-//                        }
-//                    }
+//                if(t.toInt()==3){
+//                    mDisposable.dispose()
 //                }
-                if(t.toInt()==3){
-                    mDisposable.dispose()
-                }
             }
 
             override fun onError(e: Throwable) {
@@ -57,28 +49,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getObservable(): Observable<Long> {
-//        val listUser = getListUsers()
-//        return Observable.create { emitter ->
-//            if (listUser == null) {
-//                if (!emitter.isDisposed) {
-//                    emitter.onError(Exception())
-//                }
-//            }
-//            for (user in listUser) {
-//                if (!emitter.isDisposed) {
-//                    emitter.onNext(user)
-//                }
-//            }
-//            if (!emitter.isDisposed) {
-//                emitter.onComplete()
-//            }
-//        }
+    private fun getObservable(): Observable<Int> {
         val user1 =User(1, "dung 1")
         val user2 =User(2, "dung 2")
         val arrayUser = arrayOf(user1, user2)
 //        return Observable.fromArray(user1, user2)
-        return Observable.interval(3,5, TimeUnit.SECONDS)
+        return Observable.range(1, 10)
 
     }
 
