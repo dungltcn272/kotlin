@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickCallApi() {
-//        mProgressDialog.show()
+        mProgressDialog.show()
         ApiService.apiService.callApi()
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<List<ObjectData>> {
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onComplete() {
-//                    mProgressDialog.dismiss()
+                    mProgressDialog.dismiss()
                     Toast.makeText(this@MainActivity, "Call API success", Toast.LENGTH_LONG).show()
                     mDataAdapter = DataAdapter(mListData)
                     rcvData.adapter = mDataAdapter
